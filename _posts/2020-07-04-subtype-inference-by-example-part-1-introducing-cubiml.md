@@ -13,7 +13,7 @@ As someone who has spent much of the subsequent three and a half years understan
 
 Most current languages with type inference use some variation of the Hindley-Milner system, which is based around _unification_, the process of iteratively _equating_ types to solve constraints. Unfortunately, this results in a system which is inflexible and unintuitive, leading to many language specific hacks and extensions in an attempt to work around the resulting issues. 
 
-With unification, values that are used together are forced to have the same type. If you pass a value to a function, it's not enough for that value to have a type _compatible_ with the function's argument type. Unfication forces it to be _equal_ to the function's argument type. If you pass two different values to the same function, they are forced to have the same type. Effectively, type constraints are propagated both forwards _and backwards_ relative to the dataflow of your program, which is confusing and leads to many type errors that do not reflect real bugs in the underlying program logic. A number of workarounds have been developed to avoid this issue in specific cases, but the underlying problem persists in any HM-derived inference system.
+With unification, values that are used together are forced to have the same type. If you pass a value to a function, it's not enough for that value to have a type _compatible_ with the function's argument type. Unification forces it to be _equal_ to the function's argument type. If you pass two different values to the same function, they are forced to have the same type. Effectively, type constraints are propagated both forwards _and backwards_ relative to the dataflow of your program, which is confusing and leads to many type errors that do not reflect real bugs in the underlying program logic. A number of workarounds have been developed to avoid this issue in specific cases, but the underlying problem persists in any HM-derived inference system.
 
 With subtyping by contrast, type inference is based around ensuring that each value has a type _compatible_ with its usages. Constraints follow the data flow of your program but do not flow "backwards", so there are no spurious type errors just because you happened to pass two different values with different, but compatible, types in the same place. This makes type inference much more powerful and also more intuitive. 
 
@@ -25,13 +25,13 @@ For example, the programming language Rust has structurally inferred traits (`Se
 
 ### That sounds great! What's the catch?
 
-There are a couple of obstacles I see towards fufilling the vision outlined above:
+There are a couple of obstacles I see towards fulfilling the vision outlined above:
 
 #### Performance
 
-Hindley-Milner style type inference runs in approximately linear O(n) time for monomorphic code. Cubic binuification by contrast has worst case cubic O(n³) time complexity, hence the name. Subtype based inference is more powerful, but that power comes at a price, as the compiler has to do a lot more work. 
+Hindley-Milner style type inference runs in approximately linear O(n) time for monomorphic code. Cubic biunification by contrast has worst case cubic O(n³) time complexity, hence the name. Subtype based inference is more powerful, but that power comes at a price, as the compiler has to do a lot more work. 
 
-This is a less serious obstacle than it might initially seem, since worst case time complexity has not even been a consideration, let alone a blocker, among popular real-world programming languages. Most mainstream languages have type systems that are undecideable, or at the very least, have exponential complexity. Even Go, a language that prides itself on fast compilation, has a number of features which impose a quadratic blowup in compilation time and at least one feature that technically requires exponential time to compile.
+This is a less serious obstacle than it might initially seem, since worst case time complexity has not even been a consideration, let alone a blocker, among popular real-world programming languages. Most mainstream languages have type systems that are undecidable, or at the very least, have exponential complexity. Even Go, a language that prides itself on fast compilation, has a number of features which impose a quadratic blowup in compilation time and at least one feature that technically requires exponential time to compile.
 
 That being said, I think performance is important, and is something I continue to research. Common practice among mainstream programming languages seems to be to just throw things at the wall and hope it is "fast enough in practice". I think it may be possible to define a subset of the language which matches how programs are written in practice while enabling improved complexity analysis, thus narrowing the gap between "fast in practice" and "slow in theory". 
 
@@ -47,7 +47,7 @@ With background and motivations out of the way, it's time for the actual tutoria
 
 ### Cubiml syntax
 
-To keep things simple, cubiml uses OCaml-like syntax. OCaml syntax is popular in the programming language design community, but it differs substantially from the syntax of C-derived languages that you may be more familiar with, so I've included an overview of cubiml's syntax below. If you are already familiar with OCaml syntax, feel free to skip ahead to the next post. 
+To keep things simple, cubiml uses OCaml-like syntax. OCaml syntax is popular in the programming language design community, but it differs substantially from the syntax of C-derived languages that you may be more familiar with, so I've included an overview of cubiml's syntax below. If you are already familiar with OCaml syntax, feel free to skip ahead to the [next post]({% post_url 2020-07-11-subtype-inference-by-example-part-2-parsing-and-biunification %}). 
 
 Keep in mind that cubiml is an _example_, not a _dictate_, and you can use the same underlying algorithms to implement languages with a wide variety of syntax and feature sets.
 
@@ -166,7 +166,7 @@ In order to avoid code referring to variables that don't exist yet, the right ha
 
 #### Mutual recursion
 
-The above syntax works for a single function that refers to itself, but in some cases, you may want to have multiple functions that each refer to each other. Unlike in the case with `let`, simply nesting `let rec`s won't work. Therefore, `let rec` allows _multiple_ variable bindings, seperated by `and`. For example, you can define mutually recursive `even` and `odd` functions as follows:
+The above syntax works for a single function that refers to itself, but in some cases, you may want to have multiple functions that each refer to each other. Unlike in the case with `let`, simply nesting `let rec`s won't work. Therefore, `let rec` allows _multiple_ variable bindings, separated by `and`. For example, you can define mutually recursive `even` and `odd` functions as follows:
 
 ```ocaml
 let rec even = fun x -> if x == 0 then true else odd(x-1)
@@ -175,10 +175,9 @@ let rec even = fun x -> if x == 0 then true else odd(x-1)
 
 #### Case types and matching
 
-Sometimes you need to make different decisions based on runtime data in a type safe manner. Cubiml supports this via _case types_, also known as _sum types_, _enums_, or _variants_. Not all languages have sum types, so the concept may be unfamiliar to you. Basically, the way it works is that you can wrap a value with a tag, and then later match against it. The match expression has branches that execute different code depending on the runtime value of the tag. Crucially, each match branch has access to the static type of the original wrapped value for that specific tag. You can think of it like a simpler, statically checked version of Java's vistor pattern or a giant switch statement on an union in C.
+Sometimes you need to make different decisions based on runtime data in a type safe manner. Cubiml supports this via _case types_, also known as _sum types_, _enums_, or _variants_. Not all languages have sum types, so the concept may be unfamiliar to you. Basically, the way it works is that you can wrap a value with a tag, and then later match against it. The match expression has branches that execute different code depending on the runtime value of the tag. Crucially, each match branch has access to the static type of the original wrapped value for that specific tag. You can think of it like a simpler, statically checked version of Java's visitor pattern or a giant switch statement on an union in C.
 
-To wrap a value, prefix it with a grave (\`) character and an uppercase Tag. E.g. 
-    `Foo {hello="Hello"}
+To wrap a value, prefix it with a grave (\`) character and an uppercase Tag. E.g. `` `Foo {hello="Hello"}``
 
 You can later match on it like follows
 
@@ -197,4 +196,4 @@ Notice that within the Circle branch, the code can access the rad field, and wit
 
 ## Conclusion
 
-That concludes the overview of cubiml's syntax. (I told you it was simple!) In the next post, I will show you how to implement the compiler's front-end, which is responsible for parsing the input and translating syntax-specific details into calls to the type checker.
+That concludes the overview of cubiml's syntax. (I told you it was simple!) In the [next post]({% post_url 2020-07-11-subtype-inference-by-example-part-2-parsing-and-biunification %}), we will begin implementing the compiler's front-end, which is responsible for parsing the input and translating syntax-specific details into calls to the type checker.
