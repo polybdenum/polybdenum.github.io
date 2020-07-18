@@ -2,7 +2,12 @@
 layout: post
 title: 'Subtype Inference by Example Part 1: Introducing CubiML'
 date: 2020-07-04 08:58 -0700
+series: cubiml
+series-num: 1
 ---
+{% include series-util.html %}
+{{series_header}}
+
 In recent years, there has been increasing interest in tools and programming languages that can automatically detect common types of bugs, in order to improve product quality and programmer productivity. Most commonly, this is done via _static type systems_, but traditional static type systems require large amounts of manual annotation by programmers, making them difficult to work with. Therefore, modern programming languages make increasing use of _type inference_, which provides the same benefits with few or no manual type annotations required. 
 
 The most popular form of type inference is based on the _Hindley-Milner_ system, which is limited by its lack of support for _subtyping_. In [his 2016 PhD thesis](https://www.cs.tufts.edu/~nr/cs257/archive/stephen-dolan/thesis.pdf), Stephen Dolan introduced _Algebraic Subtyping_, a new type inference system with full subtyping support. However, as an academic thesis, _Algebraic Subtyping_ is an intimidating 157 pages full of formal mathematical proofs and short on practical implementation guidance. 
@@ -47,7 +52,7 @@ With background and motivations out of the way, it's time for the actual tutoria
 
 ### Cubiml syntax
 
-To keep things simple, cubiml uses OCaml-like syntax. OCaml syntax is popular in the programming language design community, but it differs substantially from the syntax of C-derived languages that you may be more familiar with, so I've included an overview of cubiml's syntax below. If you are already familiar with OCaml syntax, feel free to skip ahead to the [next post]({% post_url 2020-07-11-subtype-inference-by-example-part-2-parsing-and-biunification %}). 
+To keep things simple, cubiml uses OCaml-like syntax. OCaml syntax is popular in the programming language design community, but it differs substantially from the syntax of C-derived languages that you may be more familiar with, so I've included an overview of cubiml's syntax below. If you are already familiar with OCaml syntax, feel free to skip ahead to the [next post]({{next_url}}). 
 
 Keep in mind that cubiml is an _example_, not a _dictate_, and you can use the same underlying algorithms to implement languages with a wide variety of syntax and feature sets.
 
@@ -196,4 +201,6 @@ Notice that within the Circle branch, the code can access the rad field, and wit
 
 ## Conclusion
 
-That concludes the overview of cubiml's syntax. (I told you it was simple!) In the [next post]({% post_url 2020-07-11-subtype-inference-by-example-part-2-parsing-and-biunification %}), we will begin implementing the compiler's front-end, which is responsible for parsing the input and translating syntax-specific details into calls to the type checker.
+That concludes the overview of cubiml's syntax. (I told you it was simple!) In the [next post]({{next_url}}), we will begin implementing the compiler's front-end, which is responsible for parsing the input and translating syntax-specific details into calls to the type checker.
+
+{{series_footer}}

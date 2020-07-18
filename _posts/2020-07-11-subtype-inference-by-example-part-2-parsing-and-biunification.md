@@ -2,10 +2,13 @@
 layout: post
 title: 'Subtype Inference by Example Part 2: Parsing and Biunification'
 date: 2020-07-11 07:54 -0700
+series: cubiml
+series-num: 2
 ---
-_This post is part of a series. [Click here to go to the beginning of the series]({% post_url 2020-07-04-subtype-inference-by-example-part-1-introducing-cubiml %})._
+{% include series-util.html %}
+{{series_header}}
 
-In [last week's post]({% post_url 2020-07-04-subtype-inference-by-example-part-1-introducing-cubiml %}), we discussed a new approach to type inference called _cubic biunification_ and introduced [cubiml](https://github.com/Storyyeller/cubiml-demo), a simple ML-like language written in Rust that demonstrates cubic biunification. This week, we will cover the first steps towards implementing cubiml, as well as a high level overview of biunification.
+In [last week's post]({{prev_url}}), we discussed a new approach to type inference called _cubic biunification_ and introduced [cubiml](https://github.com/Storyyeller/cubiml-demo), a simple ML-like language written in Rust that demonstrates cubic biunification. This week, we will cover the first steps towards implementing cubiml, as well as a high level overview of biunification.
 
 ## Parsing
 
@@ -237,7 +240,7 @@ However, there is one more wrinkle in the system - variables. Under biunificatio
 
 The solution is that instead of representing this constraint directly, we instead just ensure transitivity of the _flows_ relation. For each variable `(v1, u1)`, and each value type `v2` that flows to `u1` and each use type `u2` that `v1` flows to, we add the constraint that `v2` flows to `u2`. Essentially, variables behave like little tunnels or wormholes in the type graph. Whatever goes in one end comes out the other.
 
-With the theory out of the way, the actual implementation of the typechecker frontend is fairly straightforward. However, there's still a fair bit of code to go through, so I'll be covering that in next week's post.
+With the theory out of the way, the actual implementation of the typechecker frontend is fairly straightforward. However, there's still a fair bit of code to go through, so I'll be covering that in [next week's post]({{next_url}}).
 
 ### Aside: type printing and simplification
 
@@ -253,4 +256,6 @@ In particular, the main simplification algorithm described in _Algebraic Subtypi
 
 Simplification cannot improve the worst case complexity of cubic biunification, because the pathological cases can't be simplified anyway. However, real world code tends to contain lots of repetitive code constructs which can easily be simplified away, so simplification can potentially improve typechecking performance for real world code. Coming up with simplification passes that are both fast and practically useful is a challenge, but I think this is a worthy avenue for exploration.
 
-Anyway, with that digression/rant out of the way, it's time to continue with the tutorial. In the next post, we will cover the implementation of cubiml's typechecker frontend.
+Anyway, with that digression/rant out of the way, it's time to continue with the tutorial. In the [next post]({{next_url}}), we will cover the implementation of cubiml's typechecker frontend.
+
+{{series_footer}}

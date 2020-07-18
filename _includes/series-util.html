@@ -1,0 +1,50 @@
+{% assign series-posts = site.posts | where: 'series', page.series | sort: 'series-num' %}
+
+{% for post in series-posts %}
+  {% if post.series-num == page.series-num %}
+    {% assign cur_ind = forloop.index | minus: 1 %}
+    {% assign cur_post = post %}
+  {% endif %}
+{% endfor %}
+
+{% if cur_ind > 0 %}
+    {% assign prev_ind = cur_ind | minus: 1 %}
+    {% assign prev_post = series-posts[prev_ind] %}
+{% endif %}
+
+{% assign last_ind = series-posts | size | minus: 1 %}
+{% if cur_ind < last_ind %}
+    {% assign next_ind = cur_ind | plus: 1 %}
+    {% assign next_post = series-posts[next_ind] %}
+{% endif %}
+
+{% unless cur_post.unlisted %}
+    {% if next_post.unlisted %}
+        {% assign next_post = nil %}
+    {% endif %}
+{% endunless %}
+
+
+
+{% assign first_url = series-posts[0].url %}
+{% assign prev_url = prev_post.url %}
+{% assign next_url = next_post.url %}
+
+
+
+{% capture series_header %}
+{% if cur_ind > 0 %}
+_This post is part of a series. [Click here to go to the beginning of the series]({{first_url}})._
+{% endif %}
+{% endcapture %}
+
+
+{% capture series_footer %}
+{% if next_post %}
+_Next post: [{{next_post.title}}]({{next_url}})_
+{% endif %}
+{% if prev_post %}
+_Previous post: [{{prev_post.title}}]({{prev_url}})_
+{% endif %}
+{% endcapture %}
+
