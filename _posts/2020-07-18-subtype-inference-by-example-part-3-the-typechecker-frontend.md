@@ -27,6 +27,8 @@ impl error::Error for SyntaxError {}
 
 Unfortunately, error types in Rust require a fair bit of boilerplate, but you can pretty much ignore all that code. All it does is define a new error type named `SyntaxError` which takes in and prints a string error message.
 
+> __Update:__ A helpful reader called my attention to the [thiserror library](https://github.com/dtolnay/thiserror), which greatly reduces the boilerplate required to define basic error types like this. There is also a library, [anyhow](https://github.com/dtolnay/anyhow), which provides a predefined equivalent of our `Result<T, Box<dyn error::Error>>` definition below.
+
 
 The frontend can return both `SyntaxError`s as well as `TypeError`s, so we need a return type that includes both. For simplicity, we'll use `Box<dyn error::Error>`, which just means a virtual pointer to any object implementing the error interface, much like you would do in Java, Go, etc. The "proper" way to combine multiple error types in Rust is by defining an enum (sum type) that includes variants for each, but doing so requires a massive amount of boilerplate.
 
@@ -517,6 +519,6 @@ impl TypeckState {
 
 There is one last subtlety here. When definitions are entered into the REPL, they may contain errors. Definitions that contain errors won't actually be executed, so any global variables they define shouldn't be made available to subsequent code. Therefore, we make a copy of all the state before we begin type checking, and undo everything if there was an error.
 
-This concludes the implementation of cubiml's typechecker frontend. Next week, we will begin the implementation of the typechecker core, so we can see what all those `engine.flow()` calls are actually doing under the hood.
+This concludes the implementation of cubiml's typechecker frontend. [Next week]({{next_url}}), we will begin the implementation of the typechecker core, so you can see what all those `engine.flow()` calls are actually doing under the hood.
 
 {{series_footer}}
