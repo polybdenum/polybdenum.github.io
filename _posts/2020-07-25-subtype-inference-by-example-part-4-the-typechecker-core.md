@@ -44,7 +44,7 @@ An advantage of our approach is that since variable integrity constraints are re
 
 ## The type checking algorithm
 
-With that out of the way, the core typechecking algorithm is surprisingly simple. There are just two parts - type checking head nodes (type constructors) and maintaining transitivity of the _flows_ relation, which we'll cover in the following post. Type checking heads is just a matter of making sure that each side uses the same type constructor, and then inserting additional flow edges to recursively ensure the corresponding subcomponent types are also compatible.
+With that out of the way, the core typechecking algorithm is surprisingly simple. There are just two parts - type checking head nodes (type constructors) and maintaining transitivity of the _flows_ relation, which we'll cover in [the following post]({{next_url}}). Type checking heads is just a matter of making sure that each side uses the same type constructor, and then inserting additional flow edges to recursively ensure the corresponding subcomponent types are also compatible.
 
 For example, suppose you have the function value type `T1 -> U1` that flows to the function use type `T2 -> U2`. Since both heads are functions, that part checks out. We then insert the flow edges saying that `U1` flows to `U2` and `T2` flows to `T1`. This ensures that the return value of the function definition flows to the value returned at the call site and the argument passed at the call site flows to the argument in the function definition. 
 
@@ -286,6 +286,6 @@ Therefore, we maintain two work lists. `pending_edges` is the list of flow edges
 
 As long as `pending_edges` is nonempty, we pop an item from it and pass it to `add_edge`, which may insert pairs into `type_pairs_to_check`. As long as `type_pairs_to_check` is nonempty, we pop an item from it, check whether each end is a type head, and if so, call `check_heads` on them, which may in turn insert pairs into `pending_edges`. If `check_heads` returns a `TypeError`, we stop and return the error to the caller (that's what that little `?` at the end does), otherwise, we just keep looping until we've processed all the pending work.
 
-We've now covered almost all the code required to implement subtype inference. In the next post, we will cover the implementation of `Reachability`, the final piece of the puzzle.
+We've now covered almost all the code required to implement subtype inference. In [the next post]({{next_url}}), we will cover the implementation of `Reachability`, the final piece of the puzzle.
 
 {{series_footer}}
