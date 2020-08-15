@@ -91,7 +91,7 @@ let rec fib = fun x ->
     else
         fib(x - 1) + fib(x - 2);
 
-fib 10
+fib "totally not a string"
 
         </textarea>
         <button id=compile-and-run type=button>Compile and run</button>
@@ -173,6 +173,7 @@ function initializeRepl(root, compiler, Printer) {
         output.scrollTop = output.scrollHeight;
         return success;
     }
+
 
     function processReplInput(line) {
         line = line.trim();
