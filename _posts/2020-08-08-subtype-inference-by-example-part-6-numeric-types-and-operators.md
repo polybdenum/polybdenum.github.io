@@ -38,7 +38,7 @@ To keep things simple in cubiml for didactic purposes, ints, floats, and strings
 
 The simplest type to implement is an operator that takes and produces a single, specific type. For example, you could have an integer comparison operator with the type signature `(int, int) -> bool`. Likewise, you could have an integer addition operator `(int, int) -> int`. Since this is easy to implement and doesn't require adding any new concepts to the type system, this is the approach we will go with for now in cubiml.
 
-Having type specific operators necessitates using a different operator for every type. For example, in many popular languages, the `+` operator is used for integer addition, floating point addition, _and_ string concatenation. In cubiml, we follow the Ocaml approach of disambiguating operators by appending a period to floating point operators. This means that `+` is reserved for integer addition and `+.` must be used for floating point addition (string concatenation is `^` in Ocaml). This approach obviously only works if you have a relatively small number of numeric types - it'd be completely unworkable if your language had the usual panoply of fixed width integers of varying sizes and signedness, but then again, I think having those is a bad idea to begin with.
+Having type specific operators necessitates using a different operator for every type. For example, in many popular languages, the `+` operator is used for integer addition, floating point addition, _and_ string concatenation. In cubiml, we follow the OCaml approach of disambiguating operators by appending a period to floating point operators. This means that `+` is reserved for integer addition and `+.` must be used for floating point addition (string concatenation is `^` in OCaml). This approach obviously only works if you have a relatively small number of numeric types - it'd be completely unworkable if your language had the usual panoply of fixed width integers of varying sizes and signedness, but then again, I think having those is a bad idea to begin with.
 
 In increasing order of implementation difficulty and complexity, the next up is an operator that can take in values of multiple types, including values of different types. For example, instead of having the integer comparison operator `>` typed `(int, int) -> bool` and the floating point comparison operator `>.` typed `(float, float) -> bool`, we could instead have a single comparison operator that lets you freely compare ints and floats, typed `(int | float, int | float) -> bool` where `|` is type union. This can be implemented with only minor changes to the typechecker, but it does require type checker changes and adds complexity, so I avoided it and kept the comparison operators separate for now. 
 
@@ -178,7 +178,7 @@ Since all literal values are now represented the same way (a `String`) regardles
 
 #### Grammar
 
-Next we add literals to the parser, which mostly consists of writing a bunch of giant regular expressions. There are a few minor differences from Ocaml's literal syntax here - we don't allow extra leading zeroes and floating point literals require a decimal point, even when an exponent is specified (Instead of `1e3`, you need to write `1.e3` or `1.0e3`). 
+Next we add literals to the parser, which mostly consists of writing a bunch of giant regular expressions. There are a few minor differences from OCaml's literal syntax here - we don't allow extra leading zeroes and floating point literals require a decimal point, even when an exponent is specified (Instead of `1e3`, you need to write `1.e3` or `1.0e3`). 
 
 Lastly, we treat the minus sign for negative literals as part of the literal itself, rather than a unary minus applied to a positive literal as is done in most languages. This greatly simplifies the code, at the expense of occasionally leading to counterintuitive behavior for ambiguous syntax. For example, `5-3` will be parsed as the nonsensical functional call `5 (-3)` rather than `5 - 3` as intended, since `-3` is a valid token. This is mostly a consequence of using functional style function calls (`func arg`), whose lack of parenthesis surrounding arguments introduces lots of ambiguity and confusion into the syntax, and is largely not an issue with more traditional syntax.
 
@@ -236,7 +236,7 @@ The final step is to add literal support in the typechecker frontend.
 
 ### Operators
 
-We now have integer, floating point, and string literals in the language, but nothing to do with them. It's time to add some operators. Recall that we will be adding `+`, `-`, `*`, and `/` operators for integer math and `<`, `<=`, `>`, and `>=` for integer comparisons. For floating point numbers, we follow Ocaml's playbook and use a different set of operators with everything suffixed by `.` (`+.`, `*.`, `>=.` etc.). Lastly, we have the string concatenation operator `^` and the generic equality operators `==` and `!=`.
+We now have integer, floating point, and string literals in the language, but nothing to do with them. It's time to add some operators. Recall that we will be adding `+`, `-`, `*`, and `/` operators for integer math and `<`, `<=`, `>`, and `>=` for integer comparisons. For floating point numbers, we follow OCaml's playbook and use a different set of operators with everything suffixed by `.` (`+.`, `*.`, `>=.` etc.). Lastly, we have the string concatenation operator `^` and the generic equality operators `==` and `!=`.
  
 
 As usual, the first step is extending the AST.
@@ -317,9 +317,9 @@ Next, we add the new operators to the language grammar.
 +}
 ```
 
-The operators are split into three sections - multiplicative, additive, and comparison operators. This allows us to encode the correct precedence rules into the grammar. Equality operators are traditionally given lower precedence than relational operators (`<`, `>=.`, etc.) but Ocaml gives them the same precedence, so I decided to do so as well to save time and simplify the grammar. 
+The operators are split into three sections - multiplicative, additive, and comparison operators. This allows us to encode the correct precedence rules into the grammar. Equality operators are traditionally given lower precedence than relational operators (`<`, `>=.`, etc.) but OCaml gives them the same precedence, so I decided to do so as well to save time and simplify the grammar. 
 
-We do however depart from the practice of most languages by making the comparison operators non-associative. (Note that both operands of the `CmpOp` rule above are `AddOp`s, meaning it is impossible to compare the result of a comparison.) In languages like Javascript and Ocaml, `a < b < c` is valid syntax which gets parsed as `(a < b) < c`, but such code is nonsensical, so it is not allowed in cubiml. 
+We do however depart from the practice of most languages by making the comparison operators non-associative. (Note that both operands of the `CmpOp` rule above are `AddOp`s, meaning it is impossible to compare the result of a comparison.) In languages like Javascript and OCaml, `a < b < c` is valid syntax which gets parsed as `(a < b) < c`, but such code is nonsensical, so it is not allowed in cubiml. 
 
 ```diff
      CaseExpr,

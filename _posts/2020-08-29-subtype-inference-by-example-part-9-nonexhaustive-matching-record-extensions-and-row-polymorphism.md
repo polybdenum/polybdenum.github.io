@@ -405,7 +405,7 @@ For records, the equivalent is that we have an explicitly listed set of _fields_
 
 This sounds a lot like inheritance, which in Javascript is done with _prototypes_, hence the name. As far as user-visible language features go, the actual effect of this is that we can take a record and extend it to create a new record with extra fields, which also has all the fields of the old record, or equivalently, delegates missing field lookups to the old record. Therefore, we call this _record extension_.
 
-Ocaml sadly doesn't support record extension, so we'll have to make up some syntax for it ourselves, or more accurately, borrow Elm's record extension syntax instead. In Elm, [prior to version 0.16](https://elm-lang.org/news/compilers-as-assistants#simplified-records), you could begin a record with `{ foo |` to include all the fields of `foo` in the new record.
+OCaml sadly doesn't support record extension, so we'll have to make up some syntax for it ourselves, or more accurately, borrow Elm's record extension syntax instead. In Elm, [prior to version 0.16](https://elm-lang.org/news/compilers-as-assistants#simplified-records), you could begin a record with `{ foo |` to include all the fields of `foo` in the new record.
 
 ```ocaml
 let foo = {a=1; b=""; c=false};
