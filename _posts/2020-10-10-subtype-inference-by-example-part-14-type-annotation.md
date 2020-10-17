@@ -9,7 +9,7 @@ date: 2020-10-10 07:58 -0700
 {% include series-util.html %}
 {{series_header}}
 
-[Last week]({{prev_url}}), we implemented conditional flow constraints (aka presence polymorphism) in cubiml. Today we'll take the language in a different direction and tackle the issue of how to allow the programmer to manually annotate types in their program. In this post, I'll cover why static type annotations are useful and how that informs their design, with the actual implementation next week. This post is a bit rant-y, so if you just want to see the code without all the background discussion, feel free to skip ahead to the next post.
+[Last week]({{prev_url}}), we implemented conditional flow constraints (aka presence polymorphism) in cubiml. Today we'll take the language in a different direction and tackle the issue of how to allow the programmer to manually annotate types in their program. In this post, I'll cover why static type annotations are useful and how that informs their design, with the actual implementation next week. This post is a bit rant-y, so if you just want to see the code without all the background discussion, feel free to skip ahead to [the next post]({{next_url}}).
 
 ## Code generation and static types
 
