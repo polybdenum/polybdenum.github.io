@@ -79,6 +79,8 @@ Therefore, Rust recently introduced *specialization*, an experimental feature th
 
 When called specifically with `u8`, `vec![v; n]` will call an optimized function to allocate zeroed memory if `v` is 0, or fill memory with a fixed byte pattern if `v` is nonzero. However, when `v` has an arbitrary type, it will instead just `clone()` it for every single element of the array, which is many orders of magnitude slower. So much for zero cost abstraction.
 
+**Update**: This explanation is not quite right. [See this comment for details](https://www.reddit.com/r/rust/comments/p0ul6b/when_zero_cost_abstractions_arent_zero_cost/h8b7b2w/).
+
 
 ## Stacked borrows
 
