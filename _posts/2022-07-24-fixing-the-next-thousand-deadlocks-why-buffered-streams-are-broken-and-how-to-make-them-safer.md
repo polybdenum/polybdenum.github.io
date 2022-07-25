@@ -100,7 +100,7 @@ In order to fix `Buffered`, we need to rule out the situation where you have two
 
 The first approach is rarely useful, but it is a lot simpler, so I'll cover it first. If the problem is that we might have futures hidden within `wrapped_stream` while we're not polling it, why not just *always poll `wrapped_stream`?*
 
-More specifically, we don't *always* have to poll it. We just have to ensure that we poll `wrapped_stream` whenever `in_progress_queue` returns `Pending`, even if it is always at our `max_buffer_size`.
+More specifically, we don't *always* have to poll it. We just have to ensure that we poll `wrapped_stream` whenever `in_progress_queue` returns `Pending`, even if it is already at our `max_buffer_size`.
 
 This approach has the advantage that it is incredibly simple to implement. It could be added to the `futures` library with just a couple lines of code without even changing any of the APIs. Unfortunately, it is only rarely the appropriate solution for users. In the common case where `wrapped_stream` is actually synchronous where `poll_next` never blocks (for example, if it came from a `stream::iter(...).map(...)` construction), this solution devolves into just an unbounded queue that eagerly evaluates the underlying stream. And that can cause problems such as running out of memory.
 
