@@ -207,8 +207,8 @@ Match(match_expr, cases) => {
     let mut case_names = HashSet::with_capacity(cases.len());
     let mut case_type_pairs = Vec::with_capacity(cases.len());
     for ((tag, name), rhs_expr) in cases {
-        if !case_names.insert(&*name) {
-            return Err(SyntaxError(format!("Repeated match case {}", name)).into());
+        if !case_names.insert(&*tag) {
+            return Err(SyntaxError(format!("Repeated match case {}", tag)).into());
         }
 
         let (wrapped_type, wrapped_bound) = engine.var();
@@ -279,8 +279,8 @@ Next we create a temporary variable for the result of the match expression. `res
 let mut case_names = HashSet::with_capacity(cases.len());
 let mut case_type_pairs = Vec::with_capacity(cases.len());
 for ((tag, name), rhs_expr) in cases {
-    if !case_names.insert(&*name) {
-        return Err(SyntaxError(format!("Repeated match case {}", name)).into());
+    if !case_names.insert(&*tag) {
+        return Err(SyntaxError(format!("Repeated match case {}", tag)).into());
     }
 ```
 As with the previous record and case examples, the core's `case_usage` constructor method takes in a list of `(tag, usage)` pairs. `case_type_pairs` is the list of these pairs we will be creating, while `case_names` is an extra set used to keep track of the tags we've seen so that we can return a syntax error in the case were a tag name is repeated within a match expression, just like how we handled duplicate field names within a record literal before.

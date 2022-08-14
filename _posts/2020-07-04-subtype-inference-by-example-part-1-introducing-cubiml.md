@@ -96,6 +96,8 @@ sum {a=7; b=8}
 
 In a real-world language, you would likely want to integrate multiple argument support directly into the language and have the typechecker handle stuff like this behind the scenes. However, in the interests of keeping the tutorial code as simple as possible and avoiding irrelevant details, cubiml does not do this.
 
+> __Update:__ [The version of cubiml on Github](https://github.com/Storyyeller/cubiml-demo) does have a shorthand syntax for multiple arguments so that instead of writing `fun args -> args.a + args.b`, you can just write `fun {a; b} -> a + b`. To keep things simple, this is not covered in the tutorial.
+
 #### Let bindings
 
 No programming language would be complete without the ability to bind values to a variable name for later reference. In cubiml, this is done slightly differently than you may be used to. The general format is `let <name> = <expr1> in <expr2>`, where the variable `<name>` is visible in the body of `<expr2>`. The entire thing is an expression which evaluates to whatever `<expr2>` evaluates to.
@@ -198,6 +200,8 @@ calculate_area `Rectangle {height=1.1; length=2.2}
 ```
 
 Notice that within the Circle branch, the code can access the rad field, and within the Rectangle branch, it can access the length and height field. Case types and matches let you essentially "unmix" distinct data types after they are mixed together in the program flow. Without case types, this would be impossible to do in a type safe manner.
+
+> **Note**: The initial syntax shown in this tutorial has no \| before the first match arm. However, in [part 9]({% post_url 2020-08-29-subtype-inference-by-example-part-9-nonexhaustive-matching-record-extensions-and-row-polymorphism %}#grammar-and-ast) I changed the syntax to require a \| before the first match arm to make things more convenient, and the examples on Github reflect the latter syntax.
 
 ## Conclusion
 

@@ -147,6 +147,9 @@ pub Script = {
 
 ```
 
+> **Note:** The syntax shown in this tutorial has left associative function application to match OCaml, so that `a b c` is parsed as `(a b) c`, rather than `a (b c)`. [The version of cubiml on Github](https://github.com/Storyyeller/cubiml-demo) changes this to right associative to make writing cubiml code more convenient. 
+
+
 The output of the parser is an abstract syntax tree, a tree of nodes representing the expressions and other bits of syntax in the input source code. Since Rust is statically typed, we have to define types for the AST.
 
 First, we have a type for literals. `enum` is Rust's form of sum types. An enum type declaration gives a list of named variants and the data associated with each one. In this case, we only have one type of literal - booleans, but we'll be adding more later. The tag is `Bool` and the associated data is just a `bool` value giving the value of the parsed literal.
