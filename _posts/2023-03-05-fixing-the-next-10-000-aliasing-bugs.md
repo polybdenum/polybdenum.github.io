@@ -389,7 +389,7 @@ This system should be good enough for ordinary code, but there are rare cases wh
 
 Obviously this makes types more verbose, but judicious use of type inference or type defaulting can greatly reduce the burden of explicit permission types. I think that it still makes sense to require explicit `xcl/shr` in function signatures, since those are useful for documentation purposes and not much different from the `const T` annotations that you already see in existing languages. 
 
-However, the grant variables are a bit ugly and a pain to manage. Therefore, type inference should be used to remove the need to explicitly write them as much as possible. As far as I know, there is no decidable way to _fully_ infer them, and you probably don't want to do that anyway due to efficiency and error-message quality reasons. However, you can still infer them in simple cases, i.e. private non-recursive functions.
+However, the grant variables are a bit ugly and a pain to manage. Therefore, type inference should be used to remove the need to explicitly write them as much as possible. As far as I know, there is no decidable way to _fully_ infer them, and you probably don't want to do that anyway for efficiency and error-message quality reasons. However, you can still infer them in simple cases, i.e. private non-recursive functions.
 
 
 # The elephant crab
@@ -404,7 +404,7 @@ And now for the elephant crab in the room: the system I've described is similar 
 
 People often think that Rust is hard to learn due to its borrow checker and think "well, maybe you need a borrow checker if you want to write C++ correctly, but why do we need it for a Java/Python/Javascript competitor?" Why can't we just use a GC and throw off the dread borrow checker?
 
-This logic however, is precisely backwards. It is true that Rust is designed to replace C++, and that Rust has a borrow checker, and that the borrow checker is necessary in order to safely due to the kind of memory management people are used to in C++. However, that doesn't mean that the borrow checker is only useful or necessary when doing C++, or that it isn't useful in a GC'ed language. Memory management is the _least_ interesting application of borrow checking.
+This logic however, is precisely backwards. It is true that Rust is designed to replace C++, and that Rust has a borrow checker, and that the borrow checker is necessary in order to safely perform the kind of memory management people are used to in C++. However, that doesn't mean that the borrow checker is only useful or necessary when doing C++, or that it isn't useful in a GC'ed language. Memory management is the _least_ interesting application of borrow checking.
 
 One of the goals of writing this post is to show how the logic of preventing common bugs inexorably leads to something that is at least vaguely similar to Rust's borrow checker (of course it doesn't have to be identical - there's still lots of room for improvement over Rust here!). In fact, _two of the three languages from the bug examples section have garbage collectors_. Far from removing the need for a borrow checker, GC merely removes some of the _hassle_ of using a borrow checker.
 
