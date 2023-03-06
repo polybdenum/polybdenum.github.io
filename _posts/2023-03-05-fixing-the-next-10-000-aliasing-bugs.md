@@ -198,7 +198,7 @@ fn increment(x: xcl NonZero) -> xcl NonZero {
     *x += 1;
     // check for overflow and ensure value is nonzero
     if *x == 0 {
-        *x = 0xFFFFFF; // saturate at max value
+        *x = 0xFFFFFFFF; // saturate at max value
     }
     // add the invariant back
     return x as NonZero;
