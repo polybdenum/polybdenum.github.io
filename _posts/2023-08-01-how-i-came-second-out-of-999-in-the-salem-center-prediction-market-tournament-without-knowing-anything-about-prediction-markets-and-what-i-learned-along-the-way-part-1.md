@@ -4,11 +4,16 @@ title: How I came second out of 999 in the Salem Center prediction market tourna
   without knowing anything about prediction markets, and what I learned along the
   way - Part 1
 date: 2023-08-01 07:36 -0700
+series: salem
+series-num: 1
 ---
+{% include series-util.html %}
+{{series_header}}
+
 
 Last August, the Salem Center at the University of Texas [announced a year-long prediction market tournament](https://www.cspicenter.com/p/introducing-the-salemcspi-forecasting) in partnership with the Center for the Study of Partisanship and Ideology in an attempt to find people who are good at predicting the future. Despite having absolutely no experience with prediction markets, I decided to give it a try and amazingly managed to place second out of nearly a thousand participants.
 
-This post is divided into two parts. The first part (what you're reading) begins with a brief description of how the tournament worked, then the overall lessons I learned while participating in the contest. The second part will be a detailed chronological account of the contest from my perspective, explaining how my strategy changed over time.
+This post is divided into two parts. The first part (what you're reading) begins with a brief description of how the tournament worked, then the overall lessons I learned while participating in the contest. [The second part]({{next_url}}) will be a detailed chronological account of the contest from my perspective, explaining how my strategy changed over time.
 
 # How does a prediction market tournament work?
 
@@ -445,7 +450,7 @@ Of course, it's important not to overstate this. The "miracle" took me from 9th 
 
 # Conclusion
 
-In this part, I covered the main lessons I learned while participating in the Salem prediction market tournament for the last year. In the next part, we'll go through a detailed *chronological* account of the tournament, seeing how it unfolded and how my strategy changed over time, and the ups and downs along the way. (Fortunately with a lot more ups than downs!)
+In this part, I covered the main lessons I learned while participating in the Salem prediction market tournament for the last year. In the [next part]({{next_url}}), we'll go through a detailed *chronological* account of the tournament, seeing how it unfolded and how my strategy changed over time, and the ups and downs along the way. (Fortunately with a lot more ups than downs!)
 
 
 
