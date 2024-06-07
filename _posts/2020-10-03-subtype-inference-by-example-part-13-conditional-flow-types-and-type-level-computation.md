@@ -335,7 +335,7 @@ let state = tick state;
 let state = tick state
 ```
 
-Importantly, our increment function is computed _at compile type_, so we can make assertions about the result at compile time. For example, the below code asserts that the result is `` `0`0`1`1 end``. If it is anything else, we get an error at compile time.
+Importantly, our increment function is computed _at compile time_, so we can make assertions about the result at compile time. For example, the below code asserts that the result is `` `0`0`1`1 end``. If it is anything else, we get an error at compile time.
 
 ```ocaml
 match state.stack with | `Done _ -> _;
