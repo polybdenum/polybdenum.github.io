@@ -20,6 +20,8 @@ Let's see how lifetime checking works in Rust, or rather doesn't work.
 
 **Note: The following is entirely based on experimentation with the Rust Playground and some failed searches for help. It is possible that there's some obscure workaround I wasn't able to find. In fact, I would _very much like_ to be wrong about this. Please let me know if I am.**
 
+**Update: It turns out that the "true intersection" section is incorrect, and I just had a typo in the code.**
+
 
 # Basic lifetime bounds
 
@@ -70,9 +72,11 @@ fn choice2<'a: 'b, 'b>(a: &'a u8, b: &'b u8) -> (&'a u8, &'b u8) {
 }
 ```
 
-# True intersections
+# ~~True intersections~~
 
-The previous example works because we never return a reference of lifetime `'b` only, so we can afford to "reinterpret" `'b` as actually being `'a & 'b` thanks to variance. However, we can modify the example by returning *both* input references as well as their intersection:
+**Edit: This section is incorrect. It turns out that I just had a typo in my code.**
+
+~~The previous example works because we never return a reference of lifetime `'b` only, so we can afford to "reinterpret" `'b` as actually being `'a & 'b` thanks to variance. However, we can modify the example by returning *both* input references as well as their intersection:~~
 
 
 ```rust
@@ -81,7 +85,7 @@ fn choice3<'a, 'b>(a: &'a u8, b: &'a u8) -> (&'a u8, &'b u8, &??? u8) {
 }
 ```
 
-What should go in the `???`? The natural approach is to try adding a *third* dummy lifetime parameter to represent the intersection of `'a` and `'b`. We'll call this dummy lifetime `'a_and_b` and add the bounds `'a: 'a_and_b` and `'b: 'a_and_b` in order to force `'a_and_b` to be at most as long as the intersection of `'a` and `'b`.
+~~What should go in the `???`? The natural approach is to try adding a *third* dummy lifetime parameter to represent the intersection of `'a` and `'b`. We'll call this dummy lifetime `'a_and_b` and add the bounds `'a: 'a_and_b` and `'b: 'a_and_b` in order to force `'a_and_b` to be at most as long as the intersection of `'a` and `'b`.~~
 
 
 ```rust
@@ -93,7 +97,7 @@ fn choice3<'a: 'a_and_b, 'b: 'a_and_b, 'a_and_b>(
 }
 ```
 
-This *should* work, but unfortunately, the compiler emits a spurious error instead:
+~~This *should* work, but unfortunately, the compiler emits a spurious error instead:~~
 
 
 ```
@@ -111,10 +115,10 @@ error: lifetime may not live long enough
    = help: consider adding the following bound: `'a: 'b`
 ```
 
-For some reason, the Rust compiler seems to *really, really* not like intersections. If you ever attempt to intersect two lifetimes, it will force you to add a linear ordering between them for no good reason.
+~~For some reason, the Rust compiler seems to *really, really* not like intersections. If you ever attempt to intersect two lifetimes, it will force you to add a linear ordering between them for no good reason.~~
 
 
-To be honest, I didn't expect to get stuck this quickly. I figured that Rust probably only had partial support for higher rank lifetimes, but I assumed that at least the most basic functions which just take and return a lifetime directly would be well supported. Unfortunately, that's not the case.
+~~To be honest, I didn't expect to get stuck this quickly. I figured that Rust probably only had partial support for higher rank lifetimes, but I assumed that at least the most basic functions which just take and return a lifetime directly would be well supported. Unfortunately, that's not the case.~~
 
 # Higher rank lifetimes
 
