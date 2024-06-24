@@ -198,7 +198,7 @@ For this, I propose the syntax `!'a mut String`, but to understand why, we'll fi
 
 ## Why borrow checking?
 
-There's a common misconception, even in the Rust community, that borrow checking is just a memory management strategy, just a quirk of languages in the C++ niche and not something you need in a language with garbage collection. In fact however, borrow checking is the inevitable consequence of [protecting against aliasing bugs](https://blog.polybdenum.com/2023/03/05/fixing-the-next-10-000-aliasing-bugs.html), regardless of which memory management strategy a language uses.
+There's a common misconception, even in the Rust community, that borrow checking is just a memory management strategy, just a quirk of languages in the C++ niche and not something you need in a language with garbage collection. In fact however, borrow checking is the inevitable consequence of [protecting against aliasing bugs](/2023/03/05/fixing-the-next-10-000-aliasing-bugs.html), regardless of which memory management strategy a language uses.
 
 ### Affine types
 
