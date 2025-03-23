@@ -8,3 +8,10 @@ pre.highlight {
 .post-content h3, .post-content h4, .post-content h5, .post-content h6 {
     margin-top: 20px;
 }
+
+.site-header {
+    position: relative;
+}
+.page-content {
+  padding: $spacing-unit 0;
+}
