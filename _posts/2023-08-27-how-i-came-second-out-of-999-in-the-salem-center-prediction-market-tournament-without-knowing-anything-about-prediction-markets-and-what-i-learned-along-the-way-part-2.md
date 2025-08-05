@@ -146,7 +146,7 @@ I didn't know it at the time, due to only checking Salem when I got a market res
 
 The next two market resolutions came on October 27th. (Or rather, the next two resolutions *for me*. "Fewer than 300,000 Jobs Any Month in 2022?" resolved on October 6th, but I wasn't in that market.)
 
-The first, "US GDP Growth 1% or More in 2022 Q3?" went against me, as at the time I was pessimistic about the economy at the time and bet NO. Then came the important market, "Will Elon Musk Buy Twitter?", where I made my first big profit.
+The first, "US GDP Growth 1% or More in 2022 Q3?" went against me, as at the time I was pessimistic about the economy and bet NO. Then came the important market, "Will Elon Musk Buy Twitter?", where I made my first big profit.
 
 I wasn't sure what to do next, so for the time being, I just reinvested all my money in "Will Russia control Kherson on 10/31/22?". I noticed that it was still only at 89%, despite the fact that it would be resolving in just 3-4 days, and after the months of slow progress in Kherson, I couldn't imagine anything changing overnight, so it seemed like safe, easy money to me.
 
@@ -584,7 +584,7 @@ The first setback was a minor loss from my limit orders in the China GDP market.
 
 ## Q4 GDP
 
-The next big setback was in the Q4 GDP 4% market, where I had a larger bet, thanks to the odds seemingly being so good. On the 18th however, the bear consensus was justified when the GDPNow forecast suddenly dropped from 41.% to 3.5%.
+The next big setback was in the Q4 GDP 4% market, where I had a larger bet, thanks to the odds seemingly being so good. On the 18th however, the bear consensus was justified when the GDPNow forecast suddenly dropped from 4.1% to 3.5%.
 
 There were also some worries in the Trump Twitter and China COVID markets that I'd forgotten about because they were ultimately insignificant. It's interesting looking back at my journal entries and seeing what I wrote about at the time vs what I remember now.
 
