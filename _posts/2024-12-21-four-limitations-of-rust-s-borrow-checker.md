@@ -182,7 +182,7 @@ The problem here is that the signature of `async_for_all` above is not general e
 
 What is the type of our closure? To understand the problem, let's try writing the closure by hand using explicit types. 
 
-First off, we need to create a type for the future we're returning. In most cases, [it is impossible to write your own futures in safe Rust](https://blog.polybdenum.com/2024/06/07/the-inconceivable-types-of-rust-how-to-make-self-borrows-safe.html), but in a simple case like this with no borrows, it actually *is* possible:
+First off, we need to create a type for the future we're returning. In most cases, [it is impossible to write your own futures in safe Rust]({% post_url 2024-06-04-the-inconceivable-types-of-rust-how-to-make-self-borrows-safe %}), but in a simple case like this with no borrows, it actually *is* possible:
 
 
 

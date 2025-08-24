@@ -66,7 +66,7 @@ Key to the usability of this system is the fact that you can freely pass non-nul
 
 In the case of null checking, your lattice of types is fairly trivial - you just have `String` and `String?`. Every type is either nullable or not. However, that's merely scratching the surface of the kinds of analysis that type checkers are and will be called on to perform.
 
-For example, the next great frontier in static type checking is alias analysis. Alias related issues are a common source of bugs and in order to statically prevent them, [you need a *borrow checker*](https://blog.polybdenum.com/2023/03/05/fixing-the-next-10-000-aliasing-bugs.html). This associates each pointer with *permissions*, each of which can be valid for a specific *lifetime*.
+For example, the next great frontier in static type checking is alias analysis. Alias related issues are a common source of bugs and in order to statically prevent them, [you need a *borrow checker*]({% post_url 2023-03-05-fixing-the-next-10-000-aliasing-bugs %}). This associates each pointer with *permissions*, each of which can be valid for a specific *lifetime*.
 
 Every pointer has the same *runtime representation* (they're all just pointers in memory). However, the *static types* are completely different. The permissions of your pointers only exist at compile time and have no effect on the runtime behavior of the code, but they are still critical to catching aliasing bugs during compilation.
 
@@ -79,7 +79,7 @@ Unlike with null checking, where you just have one bit of "extra" information as
 
 As the null checking example shows, nearly every language has *some* sort of subtyping. However, type systems and compilers are often not designed with subtyping in mind, leading to lots of preventable rough edges. The more sophisticated the type system, the bigger the cost of not taking subtyping seriously in the design. In order to design the programming languages of tomorrow, *Algebraic Subtyping*-inspired designs will become even more important.
 
-See [here](https://blog.polybdenum.com/2020/07/04/subtype-inference-by-example-part-1-introducing-cubiml.html) for a basic tutorial on how to implement subtyping with type inference.
+See [here]({% post_url 2020-07-04-subtype-inference-by-example-part-1-introducing-cubiml %}) for a basic tutorial on how to implement subtyping with type inference.
 
 
 

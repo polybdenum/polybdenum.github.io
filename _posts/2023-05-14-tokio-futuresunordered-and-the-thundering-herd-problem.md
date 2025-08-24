@@ -4,7 +4,7 @@ title: Tokio, FuturesUnordered, and the Thundering Herd Problem
 date: 2023-05-14 19:08 -0700
 ---
 
-I work on a team that runs a Rust service using Tokio in production. I've been coding Rust for many years, have written or rewritten most of our code, [have been burned](https://blog.polybdenum.com/2022/07/24/fixing-the-next-thousand-deadlocks-why-buffered-streams-are-broken-and-how-to-make-them-safer.html) by many of the rough edges of async Rust, and have even written a presentation to introduce async Rust to new people, so I consider myself pretty knowledgeable about the topic. Nevertheless, I ran into a surprising async bug this week. Here is my story:
+I work on a team that runs a Rust service using Tokio in production. I've been coding Rust for many years, have written or rewritten most of our code, [have been burned]({% post_url 2022-07-24-fixing-the-next-thousand-deadlocks-why-buffered-streams-are-broken-and-how-to-make-them-safer %}) by many of the rough edges of async Rust, and have even written a presentation to introduce async Rust to new people, so I consider myself pretty knowledgeable about the topic. Nevertheless, I ran into a surprising async bug this week. Here is my story:
 
 ## Background
 
@@ -313,4 +313,4 @@ The correct solution is to use [Tokio's Mutex type](https://docs.rs/tokio/latest
 
 Unlike most languages with `async`, Rust does not automatically spawn futures into separate tasks. Spawning everything vastly reduces the potential for bugs, but it comes at the cost of performance and flexibility, so Rust doesn't do it by default. In our case, our code wouldn't have even been possible at all without the ability to run non-spawned futures, since rustc incorrectly thinks the code is not `Send`. 
 
-While this ability is invaluable, [it is also *extremely* error-prone](https://blog.polybdenum.com/2022/07/24/fixing-the-next-thousand-deadlocks-why-buffered-streams-are-broken-and-how-to-make-them-safer.html). Even when you think you're being careful, you're not being careful enough. Fortunately, in this case, the bug was ultimately harmless and easily fixed, but it was still a great lesson in how unintuitive async Rust can be. Hopefully now that you've read this, you'll be able to prevent such issues *before* you have to learn this lesson the hard way.
+While this ability is invaluable, [it is also *extremely* error-prone]({% post_url 2022-07-24-fixing-the-next-thousand-deadlocks-why-buffered-streams-are-broken-and-how-to-make-them-safer %}). Even when you think you're being careful, you're not being careful enough. Fortunately, in this case, the bug was ultimately harmless and easily fixed, but it was still a great lesson in how unintuitive async Rust can be. Hopefully now that you've read this, you'll be able to prevent such issues *before* you have to learn this lesson the hard way.

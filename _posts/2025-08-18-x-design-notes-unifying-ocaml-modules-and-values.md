@@ -334,7 +334,7 @@ let _ = Printf.printf "x = %d\n" x
 
 The answer is that you don't know! There's no way to tell without finding the definition of `M`, because `open M` *might* shadow `x` or it might not. 
 
-I've long argued that **optional type annotations should never impact the observable behavior of code**. [While this principle is often violated by real-world languages](https://blog.polybdenum.com/2022/04/25/when-type-annotations-are-code-too.html),  it is key to making X simple and easy to understand despite the use of advanced type system features and sophisticated global type inference. If you want to understand what code in X *does*, you can always just *ignore the type system* and look at the *code*. 
+I've long argued that **optional type annotations should never impact the observable behavior of code**. [While this principle is often violated by real-world languages]({% post_url 2022-04-24-when-type-annotations-are-code-too %}),  it is key to making X simple and easy to understand despite the use of advanced type system features and sophisticated global type inference. If you want to understand what code in X *does*, you can always just *ignore the type system* and look at the *code*. 
 
 However, with OCaml-style `open`s, that is no longer the case. Consider this example:
 

@@ -196,7 +196,7 @@ Notice how PolySubML shows both sides of the conflict, where a value of type `in
 
 # Rule 3: Ask the user to clarify intent
 
-In my previous language, [CubiML](https://blog.polybdenum.com/2020/07/04/subtype-inference-by-example-part-1-introducing-cubiml.html), type error messages show where a) a value originates with a certain type and then b) flows to a use where it is required to have an incompatible type. For simple cases, this is already enough for the user to understand the problem. However, thanks to type inference, there might be an arbitrarily long and complex path from a) to b) which the user won't understand. For example, in the previous section, the int flows into a function call, through a mutable field, a match expression, and then back out of the function to a different call of the same function.
+In my previous language, [CubiML]({% post_url 2020-07-04-subtype-inference-by-example-part-1-introducing-cubiml %}), type error messages show where a) a value originates with a certain type and then b) flows to a use where it is required to have an incompatible type. For simple cases, this is already enough for the user to understand the problem. However, thanks to type inference, there might be an arbitrarily long and complex path from a) to b) which the user won't understand. For example, in the previous section, the int flows into a function call, through a mutable field, a match expression, and then back out of the function to a different call of the same function.
 
 As described in the previous sections, there is a chain of inference starting from the provided source code and the language's rules which lead to a contradiction. However, the compiler doesn't know *which part* of that chain contains the problem. The user's mistake could be at any point in that chain.
 
@@ -380,7 +380,7 @@ Therefore, I had to modify PolySubML in order to ensure that it can only infer *
 
 # Rule 5: Do not include static type inference in your runtime execution model
 
-I won't say much here because I already wrote [an entire blog post on the topic](https://blog.polybdenum.com/2022/04/25/when-type-annotations-are-code-too.html), but I figured I should mention this here for completeness, because it is another common design issue that causes type inference to behave in complex and surprising ways, and thus contributes to the bad reputation of type inference.
+I won't say much here because I already wrote [an entire blog post on the topic]({% post_url 2022-04-24-when-type-annotations-are-code-too %}), but I figured I should mention this here for completeness, because it is another common design issue that causes type inference to behave in complex and surprising ways, and thus contributes to the bad reputation of type inference.
 
 # Conclusion
 
