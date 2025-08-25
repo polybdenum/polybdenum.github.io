@@ -2,7 +2,12 @@
 layout: post
 title: 'X Design Notes: Unifying OCaml Modules and Values'
 date: 2025-08-18 18:25 -0700
+series: xdesign
+series-num: 1
 ---
+{% include series-util.html %}
+{{series_header}}
+
 In 2020, I released [Cubiml](https://github.com/Storyyeller/cubiml-demo), showing how to combine full type inference with structural subtyping in an ML-like language, and earlier this year, I followed it up with [PolySubML](https://github.com/Storyyeller/polysubml-demo), extending it with higher rank types and existential types among other features. For my next language (which I'll call X here, since I haven't chosen a name yet), I set the ambitious goal of supporting *all* of OCaml's most notable functionality on top of everything PolySubML already supports. In this post, I will talk about the biggest OCaml feature that needs to be added, **modules**.
 
 OCaml modules are not like the modules you might be used to in other languages. The basic idea is to be able to bundle data and types together and pass them around as record-like objects. They're a fairly unique feature, and there's considerable debate about whether they are worth it compared to simpler and easier-to-use systems like Haskell typeclasses. But the goal of X is to emulate the major features of OCaml, so that's what we're going to do.
@@ -850,6 +855,7 @@ Unifying the value and module levels allows X to have the same expressivity whil
 With modules out of the way, there are several other OCaml features left to integrate into X, notably **nominal types** (including records and variants) and **GADTs**, subjects I hope to address in subsequent blog posts about the planned design of X.
 
 
+{{series_footer}}
 
 
 
