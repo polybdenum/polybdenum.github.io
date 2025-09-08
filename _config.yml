@@ -16,7 +16,7 @@
 title: Considerations on Codecrafting
 email: ""
 description: >- # this means to ignore newlines until "baseurl:"
-  Programming, math, and other things gratuitously nerdy
+  Programming, math, and other things gratuitously nerdy. Opinions are my own.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://blog.polybdenum.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: ""
