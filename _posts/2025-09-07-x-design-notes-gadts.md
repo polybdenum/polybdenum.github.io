@@ -8,7 +8,7 @@ date: 2025-09-07 21:50 -0700
 {% include series-util.html %}
 {{series_header}}
 
-In the previous posts about the design of X (the currently untitled successor language to [PolySubML](https://github.com/Storyyeller/polysubml-demo)), we talked about parameterized types and higher-kinded inference. This week, we're going to talk about *GADTs*.
+In the [previous post]({{prev_url}}) about the design of X (the currently untitled successor language to [PolySubML](https://github.com/Storyyeller/polysubml-demo)), we talked about parameterized types and higher-kinded inference. This week, we're going to talk about *GADTs*.
 
 What are GADTs? GADT is short for "Generalized Algebraic Data Type", but that hardly makes the meaning any clearer.
 
