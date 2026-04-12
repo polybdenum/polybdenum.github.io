@@ -13,7 +13,7 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: Considerations on Codecrafting
+title: Considerations on Codecrafting - words are my own, not an LLM's
 email: ""
 description: >- # this means to ignore newlines until "baseurl:"
   Programming, math, and other things gratuitously nerdy. Opinions are my own.
