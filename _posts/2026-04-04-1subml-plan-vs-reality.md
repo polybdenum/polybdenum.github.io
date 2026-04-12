@@ -34,7 +34,7 @@ In PolySubML, generic functions and existential records are symmetric, in the se
 
 Specifically, you can include *type* fields in record patterns, which makes the pattern match against an existential record type (and then pin the type). For example:
 
-```ml
+```1sml
 let foo: {type t; zero: t; add: (t, t) -> t} = 
     if whatever then 
         {zero=0; add: fun (a, b) -> a + b}
@@ -56,7 +56,7 @@ OCaml has basic record syntax (`{}`) for ordinary values and module syntax (`str
 
 As 1SubML unifies values and modules, you can just use the normal record syntax for both. The original plan though was to *also* support OCaml-style `struct` syntax, and just have it be [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar) for ordinary record syntax wrapped in a block:
 
-```ml
+```1sml
 let M = struct 
     type t = int;
     let x = 2;
@@ -75,7 +75,7 @@ However, this ended up being another indirect casualty of the switch to spine co
 
 This in turn means that it is easy to run into confusing scoping issues with `struct` syntax, making it into a giant footgun which isn't worth the cost of including. For example, 
 
-```ml
+```1sml
 mod M = (struct
     type foo = int;
     wrap=foo;
@@ -89,7 +89,7 @@ end);
 
 desugars into
 
-```ml
+```1sml
 mod M = ((
     type foo = int;
     let wrap=foo;
@@ -105,7 +105,7 @@ mod M = ((
 
 The problem here is that the type `foo` goes out of scope after the inner `()` that `struct` desugars to, meaning that it is no longer in scope when `t` is inferred:
 
-```ml
+```1sml
 mod M = ((
     type foo = int;
     let wrap=foo;
@@ -187,7 +187,7 @@ The syntax for pure identity function types also changed, with the originally pr
 
 The syntax for registering custom implicit coercions is completely different. The original proposal was to allow adding an `implicit` prefix to any `let` binding:
 
-```ml
+```1sml
 newtype foo = {x: int};
 (* foo$ implicitly marked as a coercion for foo *)
 
@@ -208,7 +208,7 @@ However, doing things this way adds a lot of complexity for no real benefit, so 
 
 Here's the above example translated into the final 1SubML syntax:
 
-```ml
+```1sml
 type foo = {x: int};
 
 mod M 
@@ -229,13 +229,13 @@ mod M
 
 Finally, there was also a syntax change for coercion annotations in patterns. The original proposal prefixed the pattern with the coercion value *expression*, followed by `#`:
 
-```ml
+```1sml
 let foo$#{x=q} = v;
 ```
 
 In the final version, you prefix the pattern with the *type*, and there is no `#` separator:
 
-```ml
+```1sml
 let foo {x=q} = v;
 ```
 
@@ -291,7 +291,7 @@ However, what happens when the type constructor is a *type inference variable*? 
 
 In the original plan, [I proposed]({% post_url 2025-09-01-x-design-notes-parameterized-types-and-higher-kinded-type-inference %}#unknown-declarations) putting annotations on the *parameters*.
 
-```ml
+```1sml
 let f = fun M -> (
     let x: M.t[+-a=int] = M.make 42;
     M.get x
@@ -304,7 +304,7 @@ However, in the actual implementation of 1SubML, I decided to flip it and requir
 
 For example
 
-```ml
+```1sml
 type pair[+A; +B] = (A, B);
 
 let p: _ as [+;+] [str; int] = pair ("", 3);
@@ -314,7 +314,7 @@ Here, `_ as [+;+]` annotates the inference variable `_` with kind `[+;+]`, so th
 
 In addition to `_`, the special type expressions `any` and `never` can likewise produce types of any kind and thus also require kind annotations when used as a type constructor:
 
-```ml
+```1sml
 let p: any as [+;+] [str; int] = pair ("", 3);
 ```
 
@@ -325,13 +325,13 @@ The kind annotation and kind inference system in 1SubML is relatively simple, be
 
 1SubML does support an OCaml-like shorthand syntax for generating wrapper functions for variant types. For example,
 
-```ml
+```1sml
 type opt[+T] = | Some T | None;
 ```
 
 is just syntactic sugar for
 
-```ml
+```1sml
 type opt[+T] = [`Some T | `None];
 let Some = fun[T]. x: T :: opt[T] -> opt `Some x;
 let None: opt[never] = opt `None ();
@@ -398,7 +398,7 @@ However, an ad hoc "one instance per match arm" restriction is arbitrary and com
 
 For example:
 
-```ml
+```1sml
 let f = fun x -> match x with 
     | `A (x, y)
     | `B y          -> y
@@ -435,7 +435,7 @@ Apart from the differences discussed above, there were some unplanned features t
 
 The first was `constructor-of!()`. One of the major guarantees of 1SubML is the *writeable types property*, which requires that any inferred types can always also be written explicitly. Since there is normally no way to explicitly refer to the type constructors generated for polymorphic types, I added `constructor-of!()` as a quick hack to enable that:
 
-```ml
+```1sml
 alias foo = constructor-of!([T]. (T, any) -> (T, any));
 
 let f: foo[str; str] = fun[T] x: (T, str) :: (T, str) -> x;
@@ -464,7 +464,7 @@ For example, `type foo[^T] = T -> T;` is roughly equivalent to `type foo[+T;-T$]
 
 Although they represent a pair of parameters under the hood, invariant parameters are still specified as a single parameter in the syntax. As with the mutable field example, you can pass either a single type (`int`) or a pair of types `(int <- int)`. For example:
 
-```ml
+```1sml
 type foo[^T] = T -> T;
 type bar[+V; -U] = U -> V;
 
@@ -478,7 +478,7 @@ let d: bar[str; bool] = bar (fun (x: bool) -> "Hello");
 
 Newtype definitions also implicitly generate functions to create and unwrap the new type:
 
-```ml
+```1sml
 type foo[^T] = T -> T;
 
 // Wrap function has type [T; T$]. (T -> T$) => foo[T$ <- T] 
@@ -498,7 +498,7 @@ Therefore, 1SubML supports a special slash pair syntax `A/B` in polymorphic func
 
 With the slash pair syntax, it is now possible to write the above function types:
 
-```ml
+```1sml
 type foo[^T] = {mut x: T};
 
 // Wrap function has type [T; T$]. {mut x: T/T$} => foo[T$ <- T]
