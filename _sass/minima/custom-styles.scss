@@ -1,3 +1,8 @@
+// Let the browser style native UI (scrollbars etc.) to match the auto light/dark skin.
+:root {
+    color-scheme: light dark;
+}
+
 pre.highlight {
     max-height: max(42vh, 280px);
 }
@@ -14,4 +19,18 @@ pre.highlight {
 }
 .page-content {
   padding: $spacing-unit 0;
+}
+
+// Terminal/compiler-output colors used in some posts' <pre> blocks.
+span.bold { font-weight: bold; }
+span.red { color: red; }
+span.green { color: green; }
+span.blue { color: blue; }
+span.cyan { color: darkcyan; }
+
+@media (prefers-color-scheme: dark) {
+  span.red { color: #ff6b6b; }
+  span.green { color: #5fd75f; }
+  span.blue { color: #6fa8ff; }
+  span.cyan { color: #4dd0e1; }
 }

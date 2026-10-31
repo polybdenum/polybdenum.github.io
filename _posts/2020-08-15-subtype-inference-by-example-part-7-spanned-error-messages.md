@@ -18,9 +18,9 @@ For example, here is [an example error message](https://clang.llvm.org/diagnosti
 
 <pre>
 $ <span style="font-style: italic;">clang -fsyntax-only t.c</span>
-<span style="font-weight: bold;">t.c:5:11:</span> <span style="font-weight: bold; color: red;">error:</span> <span style="font-weight: bold;">indirection requires pointer operand ('int' invalid)</span>
+<span style="font-weight: bold;">t.c:5:11:</span> <span class="bold red">error:</span> <span style="font-weight: bold;">indirection requires pointer operand ('int' invalid)</span>
 <span>  int y = *SomeA.X;</span>
-<span style="font-weight: bold; color: green;">          ^~~~~~~~</span>
+<span class="bold green">          ^~~~~~~~</span>
 </pre>
 
 As another example, here is a typical compiler error message in Elm.

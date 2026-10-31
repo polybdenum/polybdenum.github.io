@@ -3,15 +3,6 @@ layout: post
 title: An Unfortunate Experience with Rust
 date: 2022-06-25 14:18 -0700
 ---
-<style>
-/*pre {white-space: pre-wrap};*/
-span.bold {font-weight: bold;}
-span.red {color: red;}
-span.green {color: green;}
-span.blue {color: blue;}
-span.cyan {color: cyan;}
-</style>
-
 I consider myself to be pretty experienced in Rust. I've been using Rust in personal projects since late 2016 and professionally since early 2021. I've prepared internal presentations to teach coworkers about borrow checking and about async programming. However, even I still occasionally run into issues fighting the Rust compiler, and the following is a series of particularly unfortunate issues I ran into at work this week.
 
 ### Background

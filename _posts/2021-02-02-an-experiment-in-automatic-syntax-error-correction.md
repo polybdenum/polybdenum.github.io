@@ -3,13 +3,6 @@ layout: post
 title: An experiment in automatic syntax error correction
 date: 2021-02-02 17:01 -0800
 ---
-<style>
-span.bold {font-weight: bold;}
-span.red {color: red;}
-span.green {color: green;}
-span.blue {color: blue;}
-</style>
-
 Before program source code can be compiled or interpreted, it must be _parsed_. Traditionally, there are three main approaches to parsing. You can write a recursive descent parser by hand if you hate yourself, or use an LR parser generator if you hate your users, or use a PEG packrat parser generator if you hate yourself _and_ your users.
 
 LR parser generators offer enormous benefits in correctness and maintainability over handwritten parsers, but nearly every popular programming language compiler uses a handwritten parser. The reason for this is that handwritten parsers are perceived as offering more useful error messages than LR parsers in the event that the user makes a mistake. Recently, I created _Ankou_, an experimental LR parser generator with the goal of offering _better_ syntax error messages than handwritten parsers using a novel search technique. In this post, I will describe the design of Ankou and its advantages and limitations.
