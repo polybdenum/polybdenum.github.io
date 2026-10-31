@@ -41,3 +41,4 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - backups/
+  - "*.sh"
