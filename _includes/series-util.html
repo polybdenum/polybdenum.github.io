@@ -18,12 +18,6 @@
     {% assign next_post = series-posts[next_ind] %}
 {% endif %}
 
-{% unless cur_post.unlisted %}
-    {% if next_post.unlisted %}
-        {% assign next_post = nil %}
-    {% endif %}
-{% endunless %}
-
 
 
 {% assign first_url = series-posts[0].url %}
