@@ -25,7 +25,7 @@ author: Robert Grosse
 
 # Build settings
 markdown: kramdown
-remote_theme: jekyll/minima
+remote_theme: jekyll/minima@4de322363fca5927e6f4012cb94f6dad69ab5e6c
 plugins:
   - jekyll-feed
   - jekyll-sitemap
