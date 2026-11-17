@@ -7,7 +7,7 @@ Last month, I used Claude Code (Opus 5.5) to look for bugs in [1SubML](https://g
 
 Claude had found a test case which demonstrated a real soundness bug in the compiler, but it was wrong about the *cause* of the bug, incorrectly blaming the coercion code and suggesting a change there. Fortunately, as 1SubML was a project I wrote myself, I had a pretty good understanding of it and was suspicious of Claude's proposed "fix". I investigated the code myself and discovered that the *actual* bug was in the unification code, a different file entirely. (The final commit is [here](https://github.com/Storyyeller/1subml/commit/cce535b395ce50ed4527ed68394ea2935e716094#diff-c5f99746a9d4d4a748f35c7c56bfabb377309fcf2e99b63721dafcf9c36bdc13) in case you're curious.) If I hadn't reviewed Claude's output and pushed back, it would have landed a pointless change and failed to address the actual root cause.
 
-When Anthropic released Fable 5.2 last week with one week of free access on Pro plans, I figured that this bug might make for a good benchmark to see how much Fable 5.2 has improved over Opus 5.5.
+When Anthropic released Fable 5.2 last week with one week of free access on Pro plans, I figured that this bug might make for a good benchmark to see how much Fable 5.2 had improved over Opus 5.5.
 
 I ran the benchmark manually by resetting my git checkout to [the commit before the fix](https://github.com/Storyyeller/1subml/commit/ff5424202e108fba60f797267f8f79633ea5424b), opening a fresh Claude Code session, and pasting in just the original repro case and a request to find the bug.
 
@@ -33,9 +33,9 @@ print b;
 I considered the benchmark passed if Claude identified and made the correct fix in unification.rs and failed if it left unification.rs untouched and made the incorrect fix in coercion.rs. (Every attempt resulted in one or the other.)
 
 
-I ran four trials each with Opus 5.5 and Fable 5.2 (medium effort in both cases). Both Opus 5.5 and Fable 5.2 made the correct fix in 1/4 trials and the incorrect fix in the other 3/4 trials.
+I ran four trials each with Opus 5.5 and Fable 5.2 (medium effort in both cases). Both Opus 5.5 and Fable 5.2 made the correct fix in one of the four trials and the incorrect fix in the other three trials.
 
-Although the sample size is small, it seems clear from this experiment that Fable 5.2 is not a huge leap forward. Going into the experiment, I expected it to identify the correct fix every time. The fact that it still screws up a lot is rather concerning and suggests that expert human oversight is still important in coding.
+Although the sample size is small, it seems clear from this experiment that Fable 5.2 is not a huge leap forward in this domain. Going into the experiment, I expected it to identify the correct fix every time. The fact that it still screws up a lot is rather concerning and suggests that expert human oversight is still important in coding.
 
 ## Other vibes
 
