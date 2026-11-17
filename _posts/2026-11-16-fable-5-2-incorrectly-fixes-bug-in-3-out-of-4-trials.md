@@ -7,7 +7,7 @@ Last month, I used Claude Code (Opus 5.5) to look for bugs in [1SubML](https://g
 
 Claude had found a test case which demonstrated a real soundness bug in the compiler, but it was wrong about the *cause* of the bug, incorrectly blaming the coercion code and suggesting a change there. Fortunately, as 1SubML was a project I wrote myself, I had a pretty good understanding of it and was suspicious of Claude's proposed "fix". I investigated the code myself and discovered that the *actual* bug was in the unification code, a different file entirely. (The final commit is [here](https://github.com/Storyyeller/1subml/commit/cce535b395ce50ed4527ed68394ea2935e716094#diff-c5f99746a9d4d4a748f35c7c56bfabb377309fcf2e99b63721dafcf9c36bdc13) in case you're curious.) If I hadn't reviewed Claude's output and pushed back, it would have landed a pointless change and failed to address the actual root cause.
 
-As Anthropic released Fable 5.2 last week with one week of free access, I figured that this bug might make for a good benchmark to see how muhc Fable 5.2 has improved over Opus 5.5.
+As Anthropic released Fable 5.2 last week with one week of free access, I figured that this bug might make for a good benchmark to see how much Fable 5.2 has improved over Opus 5.5.
 
 I ran the benchmark manually by resetting my git checkout to [the commit before the fix](https://github.com/Storyyeller/1subml/commit/ff5424202e108fba60f797267f8f79633ea5424b), opened a fresh Claude Code session, and pasted in just the original repro case and a request to find the bug:
 
